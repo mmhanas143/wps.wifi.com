@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WPS Gift</title>
+    <!-- Google Fonts for a stylish font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fceaff, #f4eaff); /* Soft pink and purple gradient */
+        }
+        .main-card {
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .pink-button {
+            background: linear-gradient(135deg, #FF69B4, #FF1493); /* Hot pink gradient */
+            color: white;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .pink-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+        }
+        .gift-box-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        .popup-modal {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+        .popup-card {
+            background-color: #fff;
+            border: 2px solid #FF69B4;
+        }
+        .text-gradient {
+            background: linear-gradient(90deg, #FF69B4, #FF1493);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <!-- Main Container Card -->
+    <div id="main-container" class="main-card p-8 md:p-12 rounded-3xl text-center w-full max-w-sm md:max-w-md transition-all duration-500 transform scale-100">
+        
+        <!-- WPS Code Entry Screen -->
+        <div id="wps-screen" class="space-y-6">
+            <h1 class="text-3xl md:text-4xl font-bold text-gradient">Enter Your WPS Code</h1>
+            <p class="text-gray-500">To unlock your special gift, please enter the code below.</p>
+            <input 
+                id="code-input" 
+                type="number" 
+                placeholder="Code here..." 
+                class="w-full p-3 text-center bg-gray-100 text-gray-800 rounded-xl border border-pink-200 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition duration-300"
+            />
+            <button 
+                id="enter-button" 
+                class="w-full py-3 px-6 rounded-xl font-bold text-lg pink-button shadow-lg"
+            >
+                Enter
+            </button>
+            <p id="error-message" class="text-red-500 hidden">Oh no, that code is incorrect. Try again!</p>
+        </div>
+
+        <!-- Gift Box Screen -->
+        <div id="gift-screen" class="hidden space-y-6">
+            <h1 class="text-3xl md:text-4xl font-bold text-gradient">Tap the Gift Box!</h1>
+            <div id="gift-box" class="cursor-pointer mx-auto gift-box-animation">
+                <!-- A beautifully designed gift box icon with pink ribbon -->
+                <svg class="w-28 h-28 md:w-40 md:h-40 text-pink-500 hover:text-pink-600 transition-colors duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+                    <path d="M480 32H32C14.33 32 0 46.33 0 64v160c0 17.67 14.33 32 32 32h160v192c0 17.67 14.33 32 32 32h96c17.67 0 32-14.33 32-32V256h160c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zM192 128c0-17.67 14.33-32 32-32h64c17.67 0 32 14.33 32 32v64c0 17.67-14.33 32-32 32h-64c-17.67 0-32-14.33-32-32v-64z"/>
+                    <rect x="232" y="32" width="48" height="224" fill="#FFC0CB"/>
+                    <rect x="144" y="104" width="224" height="48" fill="#FFC0CB"/>
+                </svg>
+            </div>
+            <p class="text-gray-400 mt-4">Tap on the gift box to see the surprise!</p>
+        </div>
+
+    </div>
+
+    <!-- Popup/Modal for Wi-Fi Info -->
+    <div id="popup-modal" class="fixed inset-0 popup-modal flex items-center justify-center p-4 z-50 hidden">
+        <div class="popup-card p-8 rounded-2xl shadow-xl text-center w-full max-w-sm relative">
+            <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-pink-500 transition duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h2 class="text-2xl md:text-3xl font-bold text-gradient mb-4">You got it!</h2>
+            <div class="bg-pink-50 p-4 rounded-md border border-pink-200">
+                <p class="mb-2 text-lg font-medium text-pink-700">SSID: أحب الله 💓</p>
+                <p class="text-lg font-medium text-pink-700">Password: Julfa@2023</p>
+            </div>
+            <p class="text-gray-500 mt-4">Enjoy your Wi-Fi!</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const wpsScreen = document.getElementById('wps-screen');
+            const giftScreen = document.getElementById('gift-screen');
+            const codeInput = document.getElementById('code-input');
+            const enterButton = document.getElementById('enter-button');
+            const errorMessage = document.getElementById('error-message');
+            const giftBox = document.getElementById('gift-box');
+            const popupModal = document.getElementById('popup-modal');
+            const closeModalButton = document.getElementById('close-modal');
+
+            // Handle WPS code submission
+            enterButton.addEventListener('click', () => {
+                if (codeInput.value === '9090') {
+                    // Hide WPS screen and show gift screen with a smooth transition
+                    wpsScreen.classList.add('hidden');
+                    giftScreen.classList.remove('hidden');
+                    errorMessage.classList.add('hidden');
+                } else {
+                    // Show error for incorrect code
+                    errorMessage.classList.remove('hidden');
+                }
+            });
+
+            // Handle gift box click
+            giftBox.addEventListener('click', () => {
+                popupModal.classList.remove('hidden');
+            });
+
+            // Handle modal close button click
+            closeModalButton.addEventListener('click', () => {
+                popupModal.classList.add('hidden');
+            });
+
+            // Handle clicks outside the modal to close it
+            popupModal.addEventListener('click', (e) => {
+                if (e.target === popupModal) {
+                    popupModal.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+  
